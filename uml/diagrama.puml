@@ -1,0 +1,41 @@
+@startuml
+skinparam monochrome true
+skinparam style strictuml
+skinparam classBackgroundColor White
+skinparam backgroundColor White
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+
+class Segurado {
+  - valorParcela : float
+  + pagarAVista(premio : float)
+  + pagarNoBoleto(premio : float, numeroParcelas : int)
+  + pagarNoCartao(premio : float, numeroParcelas : int)
+}
+
+class CalculadoraPagamento {
+  - premio : float
+  - numeroParcelas : int
+  + calcular(pagamento : Pagamento) : float
+}
+
+interface Pagamento <<interface>> {
+  + calcularParcela(premio : float, numeroParcelas : int) : float
+}
+
+class PagamentoAVista {
+}
+
+class PagamentoBoleto {
+}
+
+class PagamentoCartao {
+}
+
+Segurado ..> CalculadoraPagamento
+CalculadoraPagamento ..> Pagamento
+
+Pagamento <|.. PagamentoAVista
+Pagamento <|.. PagamentoBoleto
+Pagamento <|.. PagamentoCartao
+@enduml
